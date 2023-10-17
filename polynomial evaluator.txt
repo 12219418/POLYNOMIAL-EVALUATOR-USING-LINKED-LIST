@@ -1,0 +1,86 @@
+import java.util.*;
+class polynomial1 {
+    static Scanner sc = new Scanner(System.in);
+    static double result;
+    static int d1;
+    static int n;
+    static int degree;
+    static int numTerms;
+    static Node head;
+    static Node tail;
+
+    static class Node {
+        double data;
+        Node next;
+
+        Node(double data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+    public void insert(double coefficient) {
+        Node newnode = new Node(coefficient);
+        n++;
+        degree =n-1;
+        d1 =degree;
+
+        if(head == null) {
+            head =tail = newnode;
+        }
+        tail.next = newnode;
+        tail = newnode;
+    }
+    public void display() {
+        Node temp = head;
+        while(temp !=null ) {
+            if(d1==0)
+            {
+                System.out.print((int)temp.data);
+            }
+            else
+            {
+                System.out.print((int)temp.data +"x^"+d1);
+            }
+            if (d1!=0) {
+                System.out.print(" + ");
+            }
+            d1--;
+            temp = temp.next;
+        }
+
+    }
+
+    public void evaluate(double x) {
+        result = 0;
+        double sum =0;
+        Node temp = head;
+        while(temp != null) {
+            sum = temp.data *Math.pow(x, degree);
+            temp = temp.next;
+            degree--;
+            result = sum+result;
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        polynomial1 poly = new polynomial1();
+
+        System.out.print("Enter the value N: Number of coefficients = ");
+        int n = sc.nextInt();
+        for(int i=0;i<n;i++)
+        {
+            System.out.print("Enter the coefficient: ");
+            int x = sc.nextInt();
+            poly.insert(x);
+        }
+        poly.display();
+        System.out.println();
+        System.out.print("Enter the value of x: ");
+        int x =sc.nextInt();
+        poly.evaluate(x);
+        System.out.println("The result of the polynomial for x = "+ x +" is = "+ result);
+
+    }
+}
